@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TranscricaoAPP.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:TranscricaoAPP.ViewModels"
+    Title="Transcrição App"
+    x:DataType="vm:MainViewModel"
+    BackgroundColor="White">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid RowDefinitions="300, *, auto, auto">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <Label
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="Pressione o botão para gravar o audio"
+                    TextColor="Black" />
+
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding ListenCommand}"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    Text="Gravar"
+                    TextColor="White">
+                    <Button.Triggers>
+                        <DataTrigger
+                            Binding="{Binding LoginCommand.IsRunning}"
+                            TargetType="Button"
+                            Value="True">
+                            <Setter Property="Text" Value="" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <ActivityIndicator
+                    HorizontalOptions="Center"
+                    IsRunning="{Binding ListenCommand.IsRunning}"
+                    IsVisible="{Binding ListenCommand.IsRunning}"
+                    VerticalOptions="Center"
+                    Color="Black" />
+
+                <Label
+                    FontSize="Medium"
+                    HorizontalOptions="Center"
+                    Text="{Binding Texto}"
+                    TextColor="Black" />
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
